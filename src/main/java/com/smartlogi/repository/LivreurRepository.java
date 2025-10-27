@@ -1,4 +1,7 @@
 package com.smartlogi.repository;
 
-public interface LivreurRepository {
+import com.smartlogi.model.Livreur;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface LivreurRepository extends JpaRepository<Livreur,Long> {
 }
