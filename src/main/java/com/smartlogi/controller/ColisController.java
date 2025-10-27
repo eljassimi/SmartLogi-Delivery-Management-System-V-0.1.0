@@ -2,6 +2,7 @@ package com.smartlogi.controller;
 
 import com.smartlogi.model.Colis;
 import com.smartlogi.repository.ColisRepository;
+import com.smartlogi.service.ColisService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,19 +11,19 @@ import java.util.List;
 @RequestMapping("/api/colis")
 public class ColisController {
 
-    private final ColisRepository colisRepository;
+    private final ColisService colisService;
 
-    public ColisController(ColisRepository colisRepository) {
-        this.colisRepository = colisRepository;
+    public ColisController(ColisService colisService) {
+        this.colisService = colisService;
     }
 
     @GetMapping
     public List<Colis> getAllColis() {
-        return colisRepository.findAll();
+        return colisService.findAll();
     }
 
     @PostMapping
     public Colis createColis(@RequestBody Colis colis) {
-        return colisRepository.save(colis);
+        return colisService.save(colis);
     }
 }
