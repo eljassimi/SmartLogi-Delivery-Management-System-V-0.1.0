@@ -2,7 +2,7 @@ package com.smartlogi.controller;
 
 
 import com.smartlogi.model.ClientExpediteur;
-import com.smartlogi.repository.ClientExpediteurRepository;
+import com.smartlogi.service.ClientExpediteurService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,20 +11,20 @@ import java.util.List;
 @RequestMapping("/api/client-expediteurs")
 public class ClientExpediteurController {
 
-    private final ClientExpediteurRepository clientExpediteurRepository;
+    private final ClientExpediteurService clientExpediteurService;
 
-    public ClientExpediteurController(ClientExpediteurRepository clientExpediteurRepository){
-        this.clientExpediteurRepository = clientExpediteurRepository;
+    public ClientExpediteurController(ClientExpediteurService clientExpediteurService){
+        this.clientExpediteurService = clientExpediteurService;
     }
 
     @GetMapping
     public List<ClientExpediteur> getAllClientExpediteur(){
-        return clientExpediteurRepository.findAll();
+        return clientExpediteurService.findAll();
     }
 
     @PostMapping
     public ClientExpediteur createClientExpediteur(@RequestBody ClientExpediteur clientExpediteur){
-        return clientExpediteurRepository.save(clientExpediteur);
+        return clientExpediteurService.save(clientExpediteur);
     }
 
 }
