@@ -1,0 +1,123 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1761573195227-1
+      author: YCode
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_clientexpediteur
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: nom
+                  type: VARCHAR(255)
+              - column:
+                  name: prenom
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: telephone
+                  type: VARCHAR(255)
+              - column:
+                  name: adresse
+                  type: VARCHAR(255)
+            tableName: client_expediteur
+  - changeSet:
+      id: 1761573195227-2
+      author: YCode
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_colis
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+              - column:
+                  name: poids
+                  type: DOUBLE
+              - column:
+                  name: statut
+                  type: VARCHAR(255)
+              - column:
+                  name: priorite
+                  type: VARCHAR(255)
+              - column:
+                  name: ville_destination
+                  type: VARCHAR(255)
+              - column:
+                  name: client_expediteur_id
+                  type: BIGINT
+              - column:
+                  name: destinataire_id
+                  type: BIGINT
+            tableName: colis
+  - changeSet:
+      id: 1761573195227-3
+      author: YCode
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_destinataire
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: nom
+                  type: VARCHAR(255)
+              - column:
+                  name: prenom
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: telephone
+                  type: VARCHAR(255)
+              - column:
+                  name: adresse
+                  type: VARCHAR(255)
+            tableName: destinataire
+  - changeSet:
+      id: 1761573195227-4
+      author: YCode
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: client_expediteur_id
+            baseTableName: colis
+            constraintName: FK_COLIS_ON_CLIENTEXPEDITEUR
+            referencedColumnNames: id
+            referencedTableName: client_expediteur
+  - changeSet:
+      id: 1761573195227-5
+      author: YCode
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: destinataire_id
+            baseTableName: colis
+            constraintName: FK_COLIS_ON_DESTINATAIRE
+            referencedColumnNames: id
+            referencedTableName: destinataire
+

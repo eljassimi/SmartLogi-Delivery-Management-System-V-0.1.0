@@ -1,5 +1,4 @@
 databaseChangeLog:
+
   - include:
-      file: db/changelog/colis.yaml
-  - include:
-      file: db/changelog/clientExpediteur.yaml
+      file: db/changelog/db-changelog.yaml

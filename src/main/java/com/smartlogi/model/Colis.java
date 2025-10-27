@@ -18,4 +18,7 @@ public class Colis {
 
     @ManyToOne
     private ClientExpediteur clientExpediteur;
+
+    @ManyToOne
+    private Destinataire destinataire;
 }
