@@ -3,6 +3,9 @@ package com.smartlogi.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Data
 public class Colis {
@@ -24,4 +27,7 @@ public class Colis {
 
     @ManyToOne
     private Livreur livreur;
+
+    @OneToMany(mappedBy = "colis")
+    private Set<ColisProduit> produits = new HashSet<>();
 }

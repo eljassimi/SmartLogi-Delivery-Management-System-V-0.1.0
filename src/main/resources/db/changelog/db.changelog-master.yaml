@@ -1,4 +1,10 @@
 databaseChangeLog:
 
   - include:
-      file: db/changelog/db-changelog.yaml
+      file: db/changelog/TableauxInitial.yaml
+  - include:
+      file: db/changelog/ColisForeingKeys.yaml
+  - include:
+      file: db/changelog/produit.yaml
+  - include:
+      file: db/changelog/colis_product.yaml
