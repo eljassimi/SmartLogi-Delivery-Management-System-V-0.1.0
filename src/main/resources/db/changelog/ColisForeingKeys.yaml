@@ -1,0 +1,60 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1761574677953-1
+      author: YCode
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_colis
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+              - column:
+                  name: poids
+                  type: DOUBLE
+              - column:
+                  name: statut
+                  type: VARCHAR(255)
+              - column:
+                  name: priorite
+                  type: VARCHAR(255)
+              - column:
+                  name: ville_destination
+                  type: VARCHAR(255)
+              - column:
+                  name: client_expediteur_id
+                  type: BIGINT
+              - column:
+                  name: destinataire_id
+                  type: BIGINT
+              - column:
+                  name: livreur_id
+                  type: BIGINT
+            tableName: colis
+        - addForeignKeyConstraint:
+            baseColumnNames: client_expediteur_id
+            baseTableName: colis
+            constraintName: FK_COLIS_ON_CLIENTEXPEDITEUR
+            referencedColumnNames: id
+            referencedTableName: client_expediteur
+        - addForeignKeyConstraint:
+            baseColumnNames: destinataire_id
+            baseTableName: colis
+            constraintName: FK_COLIS_ON_DESTINATAIRE
+            referencedColumnNames: id
+            referencedTableName: destinataire
+        - addForeignKeyConstraint:
+            baseColumnNames: livreur_id
+            baseTableName: colis
+            constraintName: FK_COLIS_ON_LIVREUR
+            referencedColumnNames: id
+            referencedTableName: livreur
+
