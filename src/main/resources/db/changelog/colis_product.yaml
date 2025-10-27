@@ -1,0 +1,55 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1761577910329-1
+      author: YCode
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: quantite
+                  type: INT
+              - column:
+                  name: prix
+                  type: DOUBLE
+              - column:
+                  name: date_ajout
+                  type: DATE
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_colisproduit
+                  name: id_colis
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_colisproduit
+                  name: id_produit
+                  type: BIGINT
+            tableName: colis_produit
+  - changeSet:
+      id: 1761577910329-2
+      author: YCode
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: id_colis
+            baseTableName: colis_produit
+            constraintName: FK_COLISPRODUIT_ON_ID_COLIS
+            referencedColumnNames: id
+            referencedTableName: colis
+  - changeSet:
+      id: 1761577910329-3
+      author: YCode
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: id_produit
+            baseTableName: colis_produit
+            constraintName: FK_COLISPRODUIT_ON_ID_PRODUIT
+            referencedColumnNames: id
+            referencedTableName: produit
+

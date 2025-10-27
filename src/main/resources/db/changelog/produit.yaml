@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1761576760361-1
+      author: YCode
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_produit
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: nom
+                  type: VARCHAR(255)
+              - column:
+                  name: categorie
+                  type: VARCHAR(255)
+              - column:
+                  name: poids
+                  type: DOUBLE
+              - column:
+                  name: prix
+                  type: DOUBLE
+            tableName: produit
+
