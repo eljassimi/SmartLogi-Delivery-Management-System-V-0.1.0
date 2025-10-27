@@ -64,6 +64,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.liquibase.ext</groupId>
+            <artifactId>liquibase-hibernate5</artifactId>
+            <version>4.21.1</version> <!-- Vérifie la dernière version disponible -->
+        </dependency>
     </dependencies>
 
     <build>
@@ -91,6 +96,25 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>4.23.0</version>
+                <configuration>
+                    <changeLogFile>src/main/resources/db/changelog/db.changelog-master.yaml</changeLogFile>
+                    <referenceUrl>hibernate:spring:com.smartlogi.model?dialect=org.hibernate.dialect.PostgreSQLDialect</referenceUrl>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                    <outputFile>src/main/resources/db/changelog/liquibase-output.yaml</outputFile>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.liquibase.ext</groupId>
+                        <artifactId>liquibase-hibernate5</artifactId>
+                        <version>4.21.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

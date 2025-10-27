@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: smartlogi
+      changes:
+        - createTable:
+            tableName: colis
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+              - column:
+                  name: poids
+                  type: DOUBLE
+              - column:
+                  name: statut
+                  type: VARCHAR(50)
+              - column:
+                  name: priorite
+                  type: VARCHAR(50)
+              - column:
+                  name: villeDestination
+                  type: VARCHAR(255)
