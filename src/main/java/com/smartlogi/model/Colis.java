@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -32,4 +34,7 @@ public class Colis {
     @OneToMany(mappedBy = "colis")
     @JsonManagedReference
     private Set<ColisProduit> produits = new HashSet<>();
+
+    @OneToMany(mappedBy = "colis")
+    private List<HistoriqueLivraison> historiqueLivraisons = new ArrayList<>();
 }

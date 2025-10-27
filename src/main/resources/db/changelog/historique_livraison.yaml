@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1761598641095-1
+      author: YCode
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_historiquelivraison
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: id_colis
+                  type: BIGINT
+              - column:
+                  name: statut
+                  type: VARCHAR(255)
+              - column:
+                  name: date_changement
+                  type: DATETIME
+              - column:
+                  name: commentaire
+                  type: VARCHAR(255)
+            tableName: historique_livraison
+  - changeSet:
+      id: 1761598641095-2
+      author: YCode
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: id_colis
+            baseTableName: historique_livraison
+            constraintName: FK_HISTORIQUELIVRAISON_ON_ID_COLIS
+            referencedColumnNames: id
+            referencedTableName: colis
+

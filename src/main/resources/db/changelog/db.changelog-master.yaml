@@ -8,3 +8,5 @@ databaseChangeLog:
       file: db/changelog/produit.yaml
   - include:
       file: db/changelog/colis_product.yaml
+  - include:
+      file: db/changelog/historique_livraison.yaml
