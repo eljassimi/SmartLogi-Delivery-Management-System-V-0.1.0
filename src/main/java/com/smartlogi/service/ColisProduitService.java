@@ -3,7 +3,9 @@ package com.smartlogi.service;
 import com.smartlogi.model.ColisProduit;
 import com.smartlogi.model.ColisProduitId;
 import com.smartlogi.repository.ColisProduitRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,10 +28,22 @@ public class ColisProduitService {
     }
 
     public ColisProduit save(ColisProduit colisProduit) {
+        if (colisProduitRepository.existsById(colisProduit.getId())) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "association Colis Produit Deja Existe !"
+            );
+        }
         return colisProduitRepository.save(colisProduit);
     }
 
     public void delete(ColisProduitId id) {
+        if (!colisProduitRepository.existsById(id)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Aucune association Colis/Produit Trouve a supprimer."
+            );
+        }
         colisProduitRepository.deleteById(id);
     }
 }

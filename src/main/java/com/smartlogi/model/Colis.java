@@ -1,5 +1,6 @@
 package com.smartlogi.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -29,5 +30,6 @@ public class Colis {
     private Livreur livreur;
 
     @OneToMany(mappedBy = "colis")
+    @JsonManagedReference
     private Set<ColisProduit> produits = new HashSet<>();
 }

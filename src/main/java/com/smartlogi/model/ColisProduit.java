@@ -1,5 +1,6 @@
 package com.smartlogi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,11 +16,13 @@ public class ColisProduit {
     @ManyToOne
     @MapsId("colisId")
     @JoinColumn(name = "id_colis")
+    @JsonBackReference
     private Colis colis;
 
     @ManyToOne
     @MapsId("produitId")
     @JoinColumn(name = "id_produit")
+    @JsonBackReference
     private Produit produit;
 
     private Integer quantite;
