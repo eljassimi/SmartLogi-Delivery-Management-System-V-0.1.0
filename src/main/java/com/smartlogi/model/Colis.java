@@ -21,4 +21,7 @@ public class Colis {
 
     @ManyToOne
     private Destinataire destinataire;
+
+    @ManyToOne
+    private Livreur livreur;
 }
