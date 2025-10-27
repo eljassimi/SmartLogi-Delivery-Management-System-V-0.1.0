@@ -15,4 +15,7 @@ public class Colis {
     private String statut;
     private String priorite;
     private String villeDestination;
+
+    @ManyToOne
+    private ClientExpediteur clientExpediteur;
 }
