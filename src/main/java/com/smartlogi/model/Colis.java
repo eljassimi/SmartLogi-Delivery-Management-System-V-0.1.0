@@ -1,5 +1,6 @@
 package com.smartlogi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -23,18 +24,25 @@ public class Colis {
     private String villeDestination;
 
     @ManyToOne
+    @JsonBackReference(value = "client-colis")
+    @JoinColumn(name = "client_expediteur_id")
     private ClientExpediteur clientExpediteur;
 
     @ManyToOne
+    @JsonBackReference(value = "destinataire-colis")
+    @JoinColumn(name = "destinataire_id")
     private Destinataire destinataire;
 
     @ManyToOne
+    @JsonBackReference(value = "livreur-colis")
+    @JoinColumn(name = "livreur_id")
     private Livreur livreur;
 
     @OneToMany(mappedBy = "colis")
-    @JsonManagedReference
+    @JsonManagedReference(value = "colis-produit")
     private Set<ColisProduit> produits = new HashSet<>();
 
     @OneToMany(mappedBy = "colis")
-    private List<HistoriqueLivraison> historiqueLivraisons = new ArrayList<>();
+    @JsonManagedReference(value = "colis-historique")
+    private List<HistoriqueLivraison> historiqueLivraisons;
 }

@@ -14,15 +14,15 @@ public class ColisProduit {
     private ColisProduitId id;
 
     @ManyToOne
+    @JsonBackReference(value = "colis-produit")
     @MapsId("colisId")
     @JoinColumn(name = "id_colis")
-    @JsonBackReference
     private Colis colis;
 
     @ManyToOne
+    @JsonBackReference(value = "produit-colis")
     @MapsId("produitId")
     @JoinColumn(name = "id_produit")
-    @JsonBackReference
     private Produit produit;
 
     private Integer quantite;

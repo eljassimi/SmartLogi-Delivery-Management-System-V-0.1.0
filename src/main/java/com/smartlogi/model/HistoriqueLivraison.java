@@ -1,5 +1,6 @@
 package com.smartlogi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ public class HistoriqueLivraison {
     private Long id;
 
     @ManyToOne
+    @JsonBackReference(value="colis-historique")
     @JoinColumn(name = "id_colis")
     private Colis colis;
 

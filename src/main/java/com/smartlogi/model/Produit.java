@@ -20,6 +20,6 @@ public class Produit {
     private Double prix;
 
     @OneToMany(mappedBy = "produit")
-    @JsonManagedReference
+    @JsonManagedReference(value = "produit-colis")
     private Set<ColisProduit> colis = new HashSet<>();
 }
