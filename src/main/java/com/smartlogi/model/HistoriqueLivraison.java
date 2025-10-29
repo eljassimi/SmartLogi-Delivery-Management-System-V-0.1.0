@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Data
 public class HistoriqueLivraison {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @ManyToOne
     @JsonBackReference(value="colis-historique")

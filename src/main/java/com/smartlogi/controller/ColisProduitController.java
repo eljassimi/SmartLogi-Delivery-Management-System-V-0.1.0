@@ -24,7 +24,7 @@ public class ColisProduitController {
     }
 
     @GetMapping("/colis/{colisId}/produit/{produitId}")
-    public Optional<ColisProduit> getById(@PathVariable Long colisId, @PathVariable Long produitId) {
+    public Optional<ColisProduit> getById(@PathVariable String colisId, @PathVariable String produitId) {
         return colisProduitService.findById(new ColisProduitId(colisId, produitId));
     }
 
@@ -34,7 +34,7 @@ public class ColisProduitController {
     }
 
     @DeleteMapping("/colis/{colisId}/produit/{produitId}")
-    public void delete(@PathVariable Long colisId, @PathVariable Long produitId) {
+    public void delete(@PathVariable String colisId, @PathVariable String produitId) {
         colisProduitService.delete(new ColisProduitId(colisId, produitId));
     }
 }

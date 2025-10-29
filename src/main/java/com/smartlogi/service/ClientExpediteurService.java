@@ -20,7 +20,7 @@ public class ClientExpediteurService {
         return clientExpediteurRepository.findAll();
     }
 
-    public Optional<ClientExpediteur> findById(Long id){
+    public Optional<ClientExpediteur> findById(String id){
         return clientExpediteurRepository.findById(id);
     }
 
@@ -28,7 +28,7 @@ public class ClientExpediteurService {
         return clientExpediteurRepository.save(clientExpediteur);
     }
 
-    public void delete(Long id){
+    public void delete(String id){
         clientExpediteurRepository.deleteById(id);
     }
 }

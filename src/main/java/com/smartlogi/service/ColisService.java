@@ -21,7 +21,7 @@ public class ColisService {
         return colisRepository.findAll();
     }
 
-    public Optional<Colis> findById(Long id){
+    public Optional<Colis> findById(String id){
         return colisRepository.findById(id);
     }
 
@@ -29,7 +29,7 @@ public class ColisService {
         return  colisRepository.save(colis);
     }
 
-    public void delete(Long id){
+    public void delete(String id){
         colisRepository.deleteById(id);
     }
 

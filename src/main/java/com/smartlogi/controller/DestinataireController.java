@@ -23,7 +23,7 @@ public class DestinataireController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Destinataire> getById(@PathVariable Long id) {
+    public Optional<Destinataire> getById(@PathVariable String id) {
         return destinataireService.findById(id);
     }
 
@@ -33,7 +33,7 @@ public class DestinataireController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable String id) {
         destinataireService.delete(id);
     }
 }

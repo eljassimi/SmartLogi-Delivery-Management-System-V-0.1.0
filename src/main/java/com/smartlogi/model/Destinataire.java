@@ -10,8 +10,8 @@ import java.util.List;
 @Data
 public class Destinataire {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     private String nom;
     private String prenom;
     private String email;

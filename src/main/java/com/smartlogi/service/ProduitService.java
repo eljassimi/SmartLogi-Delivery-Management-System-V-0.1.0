@@ -20,7 +20,7 @@ public class ProduitService {
         return produitRepository.findAll();
     }
 
-    public Optional<Produit> findById(Long id) {
+    public Optional<Produit> findById(String id) {
         return produitRepository.findById(id);
     }
 
@@ -28,7 +28,7 @@ public class ProduitService {
         return produitRepository.save(produit);
     }
 
-    public void delete(Long id) {
+    public void delete(String id) {
         produitRepository.deleteById(id);
     }
 }

@@ -20,7 +20,7 @@ public class DestinataireService {
         return destinataireRepository.findAll();
     }
 
-    public Optional<Destinataire> findById(Long id) {
+    public Optional<Destinataire> findById(String id) {
         return destinataireRepository.findById(id);
     }
 
@@ -28,7 +28,7 @@ public class DestinataireService {
         return destinataireRepository.save(destinataire);
     }
 
-    public void delete(Long id) {
+    public void delete(String id) {
         destinataireRepository.deleteById(id);
     }
 }
