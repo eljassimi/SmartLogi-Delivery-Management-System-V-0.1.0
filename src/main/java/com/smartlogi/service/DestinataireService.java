@@ -2,6 +2,7 @@ package com.smartlogi.service;
 
 import com.smartlogi.dto.destinataire.DestinataireRequestDTO;
 import com.smartlogi.dto.destinataire.DestinataireResponseDTO;
+import com.smartlogi.exception.ResourceNotFoundException;
 import com.smartlogi.mapper.DestinataireMapper;
 import com.smartlogi.model.Destinataire;
 import com.smartlogi.repository.DestinataireRepository;
@@ -25,9 +26,9 @@ public class DestinataireService {
     }
 
     public DestinataireResponseDTO findById(String id) {
-        return destinataireRepository.findById(id)
-            .map(destinataireMapper::toResponse)
-            .orElse(null);
+        Destinataire destinataire = destinataireRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Destinataire", "id", id));
+        return destinataireMapper.toResponse(destinataire);
     }
 
     public DestinataireResponseDTO save(DestinataireRequestDTO dto) {
@@ -37,6 +38,9 @@ public class DestinataireService {
     }
 
     public void delete(String id) {
+        if (!destinataireRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Destinataire", "id", id);
+        }
         destinataireRepository.deleteById(id);
     }
 }

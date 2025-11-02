@@ -2,12 +2,12 @@ package com.smartlogi.service;
 
 import com.smartlogi.dto.clientexpediteur.ClientExpediteurRequestDTO;
 import com.smartlogi.dto.clientexpediteur.ClientExpediteurResponseDTO;
+import com.smartlogi.exception.ResourceNotFoundException;
 import com.smartlogi.mapper.ClientExpediteurMapper;
 import com.smartlogi.model.ClientExpediteur;
 import com.smartlogi.repository.ClientExpediteurRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClientExpediteurService {
@@ -26,9 +26,9 @@ public class ClientExpediteurService {
     }
 
     public ClientExpediteurResponseDTO findById(String id) {
-        return clientExpediteurRepository.findById(id)
-            .map(clientExpediteurMapper::toResponse)
-            .orElse(null);
+        ClientExpediteur client = clientExpediteurRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("ClientExpediteur", "id", id));
+        return clientExpediteurMapper.toResponse(client);
     }
 
     public ClientExpediteurResponseDTO save(ClientExpediteurRequestDTO dto) {
@@ -38,19 +38,21 @@ public class ClientExpediteurService {
     }
 
     public ClientExpediteurResponseDTO update(String clientId, ClientExpediteurRequestDTO dto){
-        return clientExpediteurRepository.findById(clientId).map(
-                existing->{
-                existing.setNom(dto.getNom());
-                existing.setPrenom(dto.getPrenom());
-                existing.setEmail(dto.getEmail());
-                existing.setTelephone(dto.getTelephone());
-                existing.setAdresse(dto.getAdresse());
-                return clientExpediteurRepository.save(existing);
-                }).map(clientExpediteurMapper::toResponse)
-                .orElse(null);
+        ClientExpediteur existing = clientExpediteurRepository.findById(clientId)
+            .orElseThrow(() -> new ResourceNotFoundException("ClientExpediteur", "id", clientId));
+        existing.setNom(dto.getNom());
+        existing.setPrenom(dto.getPrenom());
+        existing.setEmail(dto.getEmail());
+        existing.setTelephone(dto.getTelephone());
+        existing.setAdresse(dto.getAdresse());
+        ClientExpediteur updated = clientExpediteurRepository.save(existing);
+        return clientExpediteurMapper.toResponse(updated);
     }
 
     public void delete(String id) {
+        if (!clientExpediteurRepository.existsById(id)) {
+            throw new ResourceNotFoundException("ClientExpediteur", "id", id);
+        }
         clientExpediteurRepository.deleteById(id);
     }
 }

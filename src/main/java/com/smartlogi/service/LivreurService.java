@@ -2,6 +2,7 @@ package com.smartlogi.service;
 
 import com.smartlogi.dto.livreur.LivreurRequestDTO;
 import com.smartlogi.dto.livreur.LivreurResponseDTO;
+import com.smartlogi.exception.ResourceNotFoundException;
 import com.smartlogi.mapper.LivreurMapper;
 import com.smartlogi.model.Livreur;
 import com.smartlogi.repository.LivreurRepository;
@@ -24,9 +25,9 @@ public class LivreurService {
             .toList();
     }
     public LivreurResponseDTO findById(String id) {
-        return livreurRepository.findById(id)
-            .map(livreurMapper::toResponse)
-            .orElse(null);
+        Livreur livreur = livreurRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Livreur", "id", id));
+        return livreurMapper.toResponse(livreur);
     }
     public LivreurResponseDTO save(LivreurRequestDTO dto) {
         Livreur entity = livreurMapper.toEntity(dto);
@@ -34,6 +35,9 @@ public class LivreurService {
         return livreurMapper.toResponse(entity);
     }
     public void delete(String id) {
+        if (!livreurRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Livreur", "id", id);
+        }
         livreurRepository.deleteById(id);
     }
 }

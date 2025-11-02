@@ -2,6 +2,7 @@ package com.smartlogi.service;
 
 import com.smartlogi.dto.colis.ColisRequestDTO;
 import com.smartlogi.dto.colis.ColisResponseDTO;
+import com.smartlogi.exception.ResourceNotFoundException;
 import com.smartlogi.mapper.ColisMapper;
 import com.smartlogi.model.Colis;
 import com.smartlogi.repository.ColisRepository;
@@ -25,9 +26,9 @@ public class ColisService {
     }
 
     public ColisResponseDTO findById(String id) {
-        return colisRepository.findById(id)
-                .map(colisMapper::toResponse)
-                .orElse(null);
+        Colis colis = colisRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Colis", "id", id));
+        return colisMapper.toResponse(colis);
     }
 
     public ColisResponseDTO save(ColisRequestDTO dto) {
@@ -37,6 +38,9 @@ public class ColisService {
     }
 
     public void delete(String id) {
+        if (!colisRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Colis", "id", id);
+        }
         colisRepository.deleteById(id);
     }
 }
