@@ -7,6 +7,7 @@ import com.smartlogi.model.ClientExpediteur;
 import com.smartlogi.repository.ClientExpediteurRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientExpediteurService {
@@ -34,6 +35,19 @@ public class ClientExpediteurService {
         ClientExpediteur client = clientExpediteurMapper.toEntity(dto);
         client = clientExpediteurRepository.save(client);
         return clientExpediteurMapper.toResponse(client);
+    }
+
+    public ClientExpediteurResponseDTO update(String clientId, ClientExpediteurRequestDTO dto){
+        return clientExpediteurRepository.findById(clientId).map(
+                existing->{
+                existing.setNom(dto.getNom());
+                existing.setPrenom(dto.getPrenom());
+                existing.setEmail(dto.getEmail());
+                existing.setTelephone(dto.getTelephone());
+                existing.setAdresse(dto.getAdresse());
+                return clientExpediteurRepository.save(existing);
+                }).map(clientExpediteurMapper::toResponse)
+                .orElse(null);
     }
 
     public void delete(String id) {

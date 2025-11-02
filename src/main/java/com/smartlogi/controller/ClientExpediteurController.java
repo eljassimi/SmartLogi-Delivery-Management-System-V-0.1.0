@@ -34,6 +34,11 @@ public class ClientExpediteurController {
         return clientExpediteurService.findById(clientId);
     }
 
+    @PutMapping("/{clientId}")
+    public ClientExpediteurResponseDTO updateClient(@PathVariable String clientId, @Valid @RequestBody ClientExpediteurRequestDTO request){
+        return clientExpediteurService.update(clientId,request);
+    }
+
     @DeleteMapping("/{clientId}")
     public void deleteClient(@PathVariable String clientId){
         clientExpediteurService.delete(clientId);
