@@ -1,0 +1,154 @@
+{
+  "info": {
+    "name": "SmartLogi SDMS API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "9baf7c2e-7fd7-4f8b-9d8d-111111111111"
+  },
+  "item": [
+    {
+      "name": "Produit",
+      "item": [
+        {
+          "name": "Create Produit",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/produits", "host": ["{{baseUrl}}"], "path": ["api", "produits"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Balance électronique\",\n  \"categorie\": \"Equipement\",\n  \"poids\": 1.25,\n  \"prix\": 399.99\n}"
+            }
+          }
+        },
+        {
+          "name": "List Produits",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/produits", "host": ["{{baseUrl}}"], "path": ["api", "produits"] } }
+        },
+        {
+          "name": "Get Produit by ID",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/produits/{{produitId}}", "host": ["{{baseUrl}}"], "path": ["api", "produits", "{{produitId}}"] } }
+        },
+        {
+          "name": "Update Produit",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/api/produits/{{produitId}}", "host": ["{{baseUrl}}"], "path": ["api", "produits", "{{produitId}}"] },
+            "body": { "mode": "raw", "raw": "{\n  \"id\": \"{{produitId}}\",\n  \"nom\": \"Balance pro\",\n  \"categorie\": \"Equipement\",\n  \"poids\": 1.30,\n  \"prix\": 429.99\n}" }
+          }
+        },
+        {
+          "name": "Delete Produit",
+          "request": { "method": "DELETE", "url": { "raw": "{{baseUrl}}/api/produits/{{produitId}}", "host": ["{{baseUrl}}"], "path": ["api", "produits", "{{produitId}}"] } }
+        }
+      ]
+    },
+    {
+      "name": "ClientExpediteur",
+      "item": [
+        {
+          "name": "Create ClientExpediteur",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/api/clients", "host": ["{{baseUrl}}"], "path": ["api", "clients"] },
+            "body": { "mode": "raw", "raw": "{\n  \"nom\": \"Amina\",\n  \"prenom\": \"Bennani\",\n  \"email\": \"amina@example.com\",\n  \"telephone\": \"+212600000000\",\n  \"adresse\": \"Rue Fes, Rabat\"\n}" }
+          }
+        },
+        { "name": "List Clients", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/clients", "host": ["{{baseUrl}}"], "path": ["api", "clients"] } } },
+        { "name": "Get Client by ID", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/clients/{{clientId}}", "host": ["{{baseUrl}}"], "path": ["api", "clients", "{{clientId}}"] } } },
+        { "name": "Update Client", "request": { "method": "PUT", "header": [ { "key": "Content-Type", "value": "application/json" } ], "url": { "raw": "{{baseUrl}}/api/clients/{{clientId}}", "host": ["{{baseUrl}}"], "path": ["api", "clients", "{{clientId}}"] }, "body": { "mode": "raw", "raw": "{\n  \"id\": \"{{clientId}}\",\n  \"nom\": \"Amina\",\n  \"prenom\": \"Bennani\",\n  \"email\": \"amina.update@example.com\",\n  \"telephone\": \"+212611111111\",\n  \"adresse\": \"Av. Hassan II, Rabat\"\n}" } } },
+        { "name": "Delete Client", "request": { "method": "DELETE", "url": { "raw": "{{baseUrl}}/api/clients/{{clientId}}", "host": ["{{baseUrl}}"], "path": ["api", "clients", "{{clientId}}"] } } }
+      ]
+    },
+    {
+      "name": "Destinataire",
+      "item": [
+        {
+          "name": "Create Destinataire",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/api/destinataires", "host": ["{{baseUrl}}"], "path": ["api", "destinataires"] },
+            "body": { "mode": "raw", "raw": "{\n  \"nom\": \"Youssef\",\n  \"prenom\": \"El Amrani\",\n  \"email\": \"youssef@example.com\",\n  \"telephone\": \"+212622222222\",\n  \"adresse\": \"Bd. Mohammed V, Casablanca\"\n}" }
+          }
+        },
+        { "name": "List Destinataires", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/destinataires", "host": ["{{baseUrl}}"], "path": ["api", "destinataires"] } } },
+        { "name": "Get Destinataire by ID", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/destinataires/{{destinataireId}}", "host": ["{{baseUrl}}"], "path": ["api", "destinataires", "{{destinataireId}}"] } } }
+      ]
+    },
+    {
+      "name": "Livreur",
+      "item": [
+        {
+          "name": "Create Livreur",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/api/livreurs", "host": ["{{baseUrl}}"], "path": ["api", "livreurs"] },
+            "body": { "mode": "raw", "raw": "{\n  \"nom\": \"Karim\",\n  \"prenom\": \"Saidi\",\n  \"telephone\": \"+212633333333\",\n  \"vehicule\": \"Moto\",\n  \"zoneAssignee\": \"Rabat-Centre\"\n}" }
+          }
+        },
+        { "name": "List Livreurs", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/livreurs", "host": ["{{baseUrl}}"], "path": ["api", "livreurs"] } } },
+        { "name": "Get Livreur by ID", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/livreurs/{{livreurId}}", "host": ["{{baseUrl}}"], "path": ["api", "livreurs", "{{livreurId}}"] } } }
+      ]
+    },
+    {
+      "name": "Colis",
+      "item": [
+        {
+          "name": "Create Colis",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/api/colis", "host": ["{{baseUrl}}"], "path": ["api", "colis"] },
+            "body": { "mode": "raw", "raw": "{\n  \"description\": \"Colis fragile - électronique\",\n  \"poids\": 2.75,\n  \"statut\": \"cree\",\n  \"priorite\": \"haute\",\n  \"villeDestination\": \"Fes\",\n  \"clientExpediteurId\": \"{{clientId}}\",\n  \"destinataireId\": \"{{destinataireId}}\",\n  \"livreurId\": \"{{livreurId}}\"\n}" }
+          }
+        },
+        { "name": "List Colis", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/colis", "host": ["{{baseUrl}}"], "path": ["api", "colis"] } } },
+        { "name": "Get Colis by ID", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/colis/{{colisId}}", "host": ["{{baseUrl}}"], "path": ["api", "colis", "{{colisId}}"] } } }
+      ]
+    },
+    {
+      "name": "Colis_Produit",
+      "item": [
+        {
+          "name": "Add Produit to Colis",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/api/colis-produits", "host": ["{{baseUrl}}"], "path": ["api", "colis-produits"] },
+            "body": { "mode": "raw", "raw": "{\n  \"colisId\": \"{{colisId}}\",\n  \"produitId\": \"{{produitId}}\",\n  \"quantite\": 2,\n  \"prix\": 799.98,\n  \"dateAjout\": \"2025-01-15\"\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "HistoriqueLivraison",
+      "item": [
+        {
+          "name": "Create HistoriqueLivraison",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/api/historiques", "host": ["{{baseUrl}}"], "path": ["api", "historiques"] },
+            "body": { "mode": "raw", "raw": "{\n  \"colisId\": \"{{colisId}}\",\n  \"statut\": \"collecte\",\n  \"dateChangement\": \"2025-01-15T10:30:00\",\n  \"commentaire\": \"Collecte effectuée chez le client\"\n}" }
+          }
+        },
+        { "name": "List Historique by Colis", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/historiques?colisId={{colisId}}", "host": ["{{baseUrl}}"], "path": ["api", "historiques"], "query": [ { "key": "colisId", "value": "{{colisId}}" } ] } } }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "produitId", "value": "" },
+    { "key": "clientId", "value": "" },
+    { "key": "destinataireId", "value": "" },
+    { "key": "livreurId", "value": "" },
+    { "key": "colisId", "value": "" }
+  ]
+}
+
+
