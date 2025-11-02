@@ -1,8 +1,9 @@
 package com.smartlogi.controller;
 
-import com.smartlogi.model.Colis;
-import com.smartlogi.repository.ColisRepository;
+import com.smartlogi.dto.colis.ColisRequestDTO;
+import com.smartlogi.dto.colis.ColisResponseDTO;
 import com.smartlogi.service.ColisService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,12 +19,17 @@ public class ColisController {
     }
 
     @GetMapping
-    public List<Colis> getAllColis() {
+    public List<ColisResponseDTO> getAllColis() {
         return colisService.findAll();
     }
 
     @PostMapping
-    public Colis createColis(@RequestBody Colis colis) {
-        return colisService.save(colis);
+    public ColisResponseDTO createColis(@Valid @RequestBody ColisRequestDTO request) {
+        return colisService.save(request);
+    }
+
+    @GetMapping("/{colisId}")
+    public ColisResponseDTO getColisById(@PathVariable String colisId){
+        return colisService.findById(colisId);
     }
 }

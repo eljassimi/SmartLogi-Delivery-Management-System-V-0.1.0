@@ -1,14 +1,16 @@
 package com.smartlogi.controller;
 
-
-import com.smartlogi.model.ClientExpediteur;
+import com.smartlogi.dto.clientexpediteur.ClientExpediteurRequestDTO;
+import com.smartlogi.dto.clientexpediteur.ClientExpediteurResponseDTO;
 import com.smartlogi.service.ClientExpediteurService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/client-expediteurs")
+@RequestMapping("/api/clients")
 public class ClientExpediteurController {
 
     private final ClientExpediteurService clientExpediteurService;
@@ -18,13 +20,22 @@ public class ClientExpediteurController {
     }
 
     @GetMapping
-    public List<ClientExpediteur> getAllClientExpediteur(){
+    public List<ClientExpediteurResponseDTO> getAllClientExpediteur(){
         return clientExpediteurService.findAll();
     }
 
     @PostMapping
-    public ClientExpediteur createClientExpediteur(@RequestBody ClientExpediteur clientExpediteur){
-        return clientExpediteurService.save(clientExpediteur);
+    public ClientExpediteurResponseDTO createClientExpediteur(@Valid @RequestBody ClientExpediteurRequestDTO request){
+        return clientExpediteurService.save(request);
     }
 
+    @GetMapping("/{clientId}")
+    public ClientExpediteurResponseDTO getClientById(@PathVariable String clientId){
+        return clientExpediteurService.findById(clientId);
+    }
+
+    @DeleteMapping("/{clientId}")
+    public void deleteClient(@PathVariable String clientId){
+        clientExpediteurService.delete(clientId);
+    }
 }

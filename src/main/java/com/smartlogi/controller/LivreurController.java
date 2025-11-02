@@ -1,8 +1,9 @@
 package com.smartlogi.controller;
 
-
-import com.smartlogi.model.Livreur;
+import com.smartlogi.dto.livreur.LivreurRequestDTO;
+import com.smartlogi.dto.livreur.LivreurResponseDTO;
 import com.smartlogi.service.LivreurService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,13 +19,17 @@ public class LivreurController {
     }
 
     @GetMapping
-    public List<Livreur> getAllLivreur(){
+    public List<LivreurResponseDTO> getAllLivreur(){
         return livreurService.findAll();
     }
 
     @PostMapping
-    public Livreur createLivreur(@RequestBody Livreur livreur){
-        return livreurService.save(livreur);
+    public LivreurResponseDTO createLivreur(@Valid @RequestBody LivreurRequestDTO request){
+        return livreurService.save(request);
+    }
+    @GetMapping("/{livreurId}")
+    public LivreurResponseDTO getLivreurById(@PathVariable String livreurId){
+        return livreurService.findById(livreurId);
     }
 
 }

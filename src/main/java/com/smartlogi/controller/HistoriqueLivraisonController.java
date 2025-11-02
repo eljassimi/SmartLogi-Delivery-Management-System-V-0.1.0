@@ -1,7 +1,9 @@
 package com.smartlogi.controller;
 
-import com.smartlogi.model.HistoriqueLivraison;
+import com.smartlogi.dto.historiquelivraison.HistoriqueLivraisonRequestDTO;
+import com.smartlogi.dto.historiquelivraison.HistoriqueLivraisonResponseDTO;
 import com.smartlogi.service.HistoriqueLivraisonService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,12 +19,12 @@ public class HistoriqueLivraisonController {
     }
 
     @GetMapping
-    public List<HistoriqueLivraison> getAll() {
+    public List<HistoriqueLivraisonResponseDTO> getAll() {
         return service.findAll();
     }
 
     @PostMapping
-    public HistoriqueLivraison create(@RequestBody HistoriqueLivraison historique) {
-        return service.save(historique);
+    public HistoriqueLivraisonResponseDTO create(@Valid @RequestBody HistoriqueLivraisonRequestDTO request) {
+        return service.save(request);
     }
 }

@@ -1,11 +1,12 @@
 package com.smartlogi.controller;
 
-import com.smartlogi.model.Destinataire;
+import com.smartlogi.dto.destinataire.DestinataireRequestDTO;
+import com.smartlogi.dto.destinataire.DestinataireResponseDTO;
 import com.smartlogi.service.DestinataireService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/destinataires")
@@ -18,18 +19,18 @@ public class DestinataireController {
     }
 
     @GetMapping
-    public List<Destinataire> getAll() {
+    public List<DestinataireResponseDTO> getAll() {
         return destinataireService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Destinataire> getById(@PathVariable String id) {
+    public DestinataireResponseDTO getById(@PathVariable String id) {
         return destinataireService.findById(id);
     }
 
     @PostMapping
-    public Destinataire create(@RequestBody Destinataire destinataire) {
-        return destinataireService.save(destinataire);
+    public DestinataireResponseDTO create(@Valid @RequestBody DestinataireRequestDTO request) {
+        return destinataireService.save(request);
     }
 
     @DeleteMapping("/{id}")

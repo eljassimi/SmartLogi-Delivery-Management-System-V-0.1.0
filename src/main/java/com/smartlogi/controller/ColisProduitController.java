@@ -1,12 +1,13 @@
 package com.smartlogi.controller;
 
-import com.smartlogi.model.ColisProduit;
+import com.smartlogi.dto.colisproduit.ColisProduitRequestDTO;
+import com.smartlogi.dto.colisproduit.ColisProduitResponseDTO;
 import com.smartlogi.model.ColisProduitId;
 import com.smartlogi.service.ColisProduitService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/colis-produits")
@@ -19,18 +20,18 @@ public class ColisProduitController {
     }
 
     @GetMapping
-    public List<ColisProduit> getAll() {
+    public List<ColisProduitResponseDTO> getAll() {
         return colisProduitService.findAll();
     }
 
     @GetMapping("/colis/{colisId}/produit/{produitId}")
-    public Optional<ColisProduit> getById(@PathVariable String colisId, @PathVariable String produitId) {
+    public ColisProduitResponseDTO getById(@PathVariable String colisId, @PathVariable String produitId) {
         return colisProduitService.findById(new ColisProduitId(colisId, produitId));
     }
 
     @PostMapping
-    public ColisProduit create(@RequestBody ColisProduit colisProduit) {
-        return colisProduitService.save(colisProduit);
+    public ColisProduitResponseDTO create(@Valid @RequestBody ColisProduitRequestDTO request) {
+        return colisProduitService.save(request);
     }
 
     @DeleteMapping("/colis/{colisId}/produit/{produitId}")

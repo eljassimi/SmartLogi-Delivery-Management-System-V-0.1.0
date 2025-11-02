@@ -1,7 +1,9 @@
 package com.smartlogi.controller;
 
-import com.smartlogi.model.Produit;
+import com.smartlogi.dto.produit.ProduitRequestDTO;
+import com.smartlogi.dto.produit.ProduitResponseDTO;
 import com.smartlogi.service.ProduitService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,12 +18,26 @@ public class ProduitController {
         this.produitService = produitService;
     }
 
+    @GetMapping("/{produitId}")
+    public ProduitResponseDTO getById(@PathVariable String produitId) {
+        return produitService.findById(produitId);
+    }
     @GetMapping
-    public List<Produit> getAllProduits(){
+    public List<ProduitResponseDTO> getAllProduits(){
         return  produitService.findAll();
     }
     @PostMapping
-    public Produit createProduit(@RequestBody Produit produit){
-        return produitService.save(produit);
+    public ProduitResponseDTO createProduit(@Valid @RequestBody ProduitRequestDTO request){
+        return produitService.save(request);
+    }
+
+    @PutMapping("/{produitId}")
+    public ProduitResponseDTO updateProduit(@PathVariable String produitId, @Valid @RequestBody ProduitRequestDTO request){
+        return produitService.update(produitId, request);
+    }
+
+    @DeleteMapping("/{produitId}")
+    public void deleteProduit(@PathVariable String produitId){
+        produitService.delete(produitId);
     }
 }
