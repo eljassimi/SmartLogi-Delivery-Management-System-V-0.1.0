@@ -1,49 +1,39 @@
 package com.smartlogi.service;
 
+import com.smartlogi.dto.colisproduit.ColisProduitRequestDTO;
+import com.smartlogi.dto.colisproduit.ColisProduitResponseDTO;
+import com.smartlogi.mapper.ColisProduitMapper;
 import com.smartlogi.model.ColisProduit;
 import com.smartlogi.model.ColisProduitId;
 import com.smartlogi.repository.ColisProduitRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ColisProduitService {
-
-    private final ColisProduitRepository colisProduitRepository;
-
-    public ColisProduitService(ColisProduitRepository colisProduitRepository) {
-        this.colisProduitRepository = colisProduitRepository;
+    private final ColisProduitRepository repo;
+    private final ColisProduitMapper mapper;
+    public ColisProduitService(ColisProduitRepository repo, ColisProduitMapper mapper){this.repo=repo;this.mapper=mapper;}
+    public List<ColisProduitResponseDTO> findAll() {
+        return repo.findAll().stream().map(mapper::toResponse).toList();
     }
-
-    public List<ColisProduit> findAll() {
-        return colisProduitRepository.findAll();
+    public ColisProduitResponseDTO findById(ColisProduitId id) {
+        return repo.findById(id).map(mapper::toResponse).orElse(null);
     }
-
-    public Optional<ColisProduit> findById(ColisProduitId id) {
-        return colisProduitRepository.findById(id);
-    }
-
-    public ColisProduit save(ColisProduit colisProduit) {
-        if (colisProduitRepository.existsById(colisProduit.getId())) {
-            throw new ResponseStatusException(
-                    HttpStatus.CONFLICT,
-                    "association Colis Produit Deja Existe !"
-            );
+    public ColisProduitResponseDTO save(ColisProduitRequestDTO dto) {
+        ColisProduit entity = mapper.toEntity(dto);
+        if (repo.existsById(entity.getId())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "association Colis Produit Deja Existe !");
         }
-        return colisProduitRepository.save(colisProduit);
+        entity = repo.save(entity);
+        return mapper.toResponse(entity);
     }
-
     public void delete(ColisProduitId id) {
-        if (!colisProduitRepository.existsById(id)) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "Aucune association Colis/Produit Trouve a supprimer."
-            );
+        if (!repo.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune association Colis/Produit Trouve a supprimer.");
         }
-        colisProduitRepository.deleteById(id);
+        repo.deleteById(id);
     }
 }

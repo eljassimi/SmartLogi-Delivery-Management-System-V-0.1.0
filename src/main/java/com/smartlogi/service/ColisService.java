@@ -1,36 +1,42 @@
 package com.smartlogi.service;
 
+import com.smartlogi.dto.colis.ColisRequestDTO;
+import com.smartlogi.dto.colis.ColisResponseDTO;
+import com.smartlogi.mapper.ColisMapper;
 import com.smartlogi.model.Colis;
 import com.smartlogi.repository.ColisRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
-
 
 @Service
 public class ColisService {
-
     private final ColisRepository colisRepository;
+    private final ColisMapper colisMapper;
 
-    public ColisService(ColisRepository colisRepository){
+    public ColisService(ColisRepository colisRepository, ColisMapper colisMapper) {
         this.colisRepository = colisRepository;
+        this.colisMapper = colisMapper;
     }
 
-    public List<Colis> findAll(){
-        return colisRepository.findAll();
+    public List<ColisResponseDTO> findAll() {
+        return colisRepository.findAll().stream()
+                .map(colisMapper::toResponse)
+                .toList();
     }
 
-    public Optional<Colis> findById(String id){
-        return colisRepository.findById(id);
+    public ColisResponseDTO findById(String id) {
+        return colisRepository.findById(id)
+                .map(colisMapper::toResponse)
+                .orElse(null);
     }
 
-    public Colis save(Colis colis){
-        return  colisRepository.save(colis);
+    public ColisResponseDTO save(ColisRequestDTO dto) {
+        Colis entity = colisMapper.toEntity(dto);
+        entity = colisRepository.save(entity);
+        return colisMapper.toResponse(entity);
     }
 
-    public void delete(String id){
+    public void delete(String id) {
         colisRepository.deleteById(id);
     }
-
 }
