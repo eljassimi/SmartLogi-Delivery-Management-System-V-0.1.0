@@ -1,6 +1,7 @@
 package com.smartlogi.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -8,6 +9,7 @@ import java.time.LocalDate;
 
 @Entity
 @Data
+@Schema(hidden = true)
 public class ColisProduit {
 
     @EmbeddedId

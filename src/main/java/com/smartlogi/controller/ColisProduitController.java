@@ -4,6 +4,7 @@ import com.smartlogi.dto.colisproduit.ColisProduitRequestDTO;
 import com.smartlogi.dto.colisproduit.ColisProduitResponseDTO;
 import com.smartlogi.model.ColisProduitId;
 import com.smartlogi.service.ColisProduitService;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/colis-produits")
+@Hidden
 public class ColisProduitController {
 
     private final ColisProduitService colisProduitService;

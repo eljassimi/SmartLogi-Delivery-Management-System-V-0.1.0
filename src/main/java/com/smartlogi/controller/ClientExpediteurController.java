@@ -7,7 +7,6 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/clients")
@@ -30,17 +29,17 @@ public class ClientExpediteurController {
     }
 
     @GetMapping("/{clientId}")
-    public ClientExpediteurResponseDTO getClientById(@PathVariable String clientId){
+    public ClientExpediteurResponseDTO getClientExpediteurById(@PathVariable String clientId){
         return clientExpediteurService.findById(clientId);
     }
 
     @PutMapping("/{clientId}")
-    public ClientExpediteurResponseDTO updateClient(@PathVariable String clientId, @Valid @RequestBody ClientExpediteurRequestDTO request){
-        return clientExpediteurService.update(clientId,request);
+    public ClientExpediteurResponseDTO updateClientExpediteur(@PathVariable String clientId, @Valid @RequestBody ClientExpediteurRequestDTO request){
+        return clientExpediteurService.update(clientId, request);
     }
 
     @DeleteMapping("/{clientId}")
-    public void deleteClient(@PathVariable String clientId){
+    public void deleteClientExpediteur(@PathVariable String clientId){
         clientExpediteurService.delete(clientId);
     }
 }

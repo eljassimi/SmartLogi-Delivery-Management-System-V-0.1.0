@@ -22,10 +22,12 @@ public class ProduitController {
     public ProduitResponseDTO getById(@PathVariable String produitId) {
         return produitService.findById(produitId);
     }
+    
     @GetMapping
     public List<ProduitResponseDTO> getAllProduits(){
         return  produitService.findAll();
     }
+
     @PostMapping
     public ProduitResponseDTO createProduit(@Valid @RequestBody ProduitRequestDTO request){
         return produitService.save(request);

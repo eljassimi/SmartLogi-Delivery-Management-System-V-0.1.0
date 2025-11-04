@@ -1,6 +1,7 @@
 package com.smartlogi.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Schema(hidden = true)
 public class Destinataire {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
