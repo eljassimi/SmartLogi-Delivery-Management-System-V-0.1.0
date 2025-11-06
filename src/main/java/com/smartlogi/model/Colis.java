@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,6 +25,8 @@ public class Colis {
     private String statut;
     private String priorite;
     private String villeDestination;
+    @Column(name = "date_creation")
+    private LocalDate dateCreation;
 
     @ManyToOne
     @JsonBackReference(value = "client-colis")
@@ -40,6 +43,11 @@ public class Colis {
     @JoinColumn(name = "livreur_id")
     private Livreur livreur;
 
+    @ManyToOne
+    @JsonBackReference(value = "zone-colis")
+    @JoinColumn(name = "zone_id")
+    private Zone zone;
+
     @OneToMany(mappedBy = "colis")
     @JsonManagedReference(value = "colis-produit")
     private Set<ColisProduit> produits = new HashSet<>();
@@ -47,4 +55,11 @@ public class Colis {
     @OneToMany(mappedBy = "colis")
     @JsonManagedReference(value = "colis-historique")
     private List<HistoriqueLivraison> historiqueLivraisons;
+
+    @PrePersist
+    void prePersist() {
+        if (dateCreation == null) {
+            dateCreation = LocalDate.now();
+        }
+    }
 }

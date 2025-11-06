@@ -1,8 +1,11 @@
 package com.smartlogi.dto.colis;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+
+import java.time.LocalDate;
 
 @Data
 public class ColisRequestDTO {
@@ -20,6 +23,8 @@ public class ColisRequestDTO {
     private String clientExpediteurId;
     @NotNull
     private String destinataireId;
-    @NotNull
     private String livreurId;
+    private String zoneId;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateCreation;
 }

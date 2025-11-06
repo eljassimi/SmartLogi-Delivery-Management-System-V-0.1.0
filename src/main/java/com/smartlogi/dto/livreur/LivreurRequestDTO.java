@@ -14,6 +14,5 @@ public class LivreurRequestDTO {
     private String telephone;
     @NotNull @Size(min = 3, max = 50)
     private String vehicule;
-    @NotNull @Size(min = 2, max = 100)
-    private String zoneAssignee;
+    private String zoneAssigneeId;
 }

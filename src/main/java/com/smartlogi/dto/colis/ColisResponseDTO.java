@@ -2,6 +2,8 @@ package com.smartlogi.dto.colis;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class ColisResponseDTO {
     private String id;
@@ -13,4 +15,6 @@ public class ColisResponseDTO {
     private String clientExpediteurId;
     private String destinataireId;
     private String livreurId;
+    private String zoneId;
+    private LocalDate dateCreation;
 }

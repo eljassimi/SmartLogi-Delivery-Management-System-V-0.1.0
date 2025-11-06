@@ -1,0 +1,833 @@
+{
+  "info": {
+    "name": "SmartLogi - Version Utilisateurs",
+    "description": "Collection Postman organisée par rôles utilisateurs: Client, Livreur, Destinataire, Manager",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "smartlogi-users-2025-001"
+  },
+  "item": [
+    {
+      "name": "👤 Client",
+      "description": "Endpoints pour les clients expéditeurs",
+      "item": [
+        {
+          "name": "Créer un colis",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Colis fragile - électronique\",\n  \"poids\": 2.75,\n  \"statut\": \"cree\",\n  \"priorite\": \"haute\",\n  \"villeDestination\": \"Fes\",\n  \"clientExpediteurId\": \"{{clientId}}\",\n  \"destinataireId\": \"{{destinataireId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/colis",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "colis"]
+            }
+          }
+        },
+        {
+          "name": "Voir mes colis",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/colis",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "colis"]
+            }
+          }
+        },
+        {
+          "name": "Voir un colis spécifique",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/colis/{{colisId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "colis", "{{colisId}}"]
+            }
+          }
+        },
+        {
+          "name": "Ajouter un produit au colis",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"colisId\": \"{{colisId}}\",\n  \"produitId\": \"{{produitId}}\",\n  \"quantite\": 2,\n  \"prix\": 799.98,\n  \"dateAjout\": \"2025-01-15\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/colis-produits",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "colis-produits"]
+            }
+          }
+        },
+        {
+          "name": "Voir l'historique de livraison d'un colis",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/historiques?colisId={{colisId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "historiques"],
+              "query": [
+                {
+                  "key": "colisId",
+                  "value": "{{colisId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Créer un destinataire",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nom\": \"Youssef\",\n  \"prenom\": \"El Amrani\",\n  \"email\": \"youssef@example.com\",\n  \"telephone\": \"+212622222222\",\n  \"adresse\": \"Bd. Mohammed V, Casablanca\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/destinataires",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "destinataires"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🚚 Livreur",
+      "description": "Endpoints pour les livreurs",
+      "item": [
+        {
+          "name": "Voir mes colis assignés",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/colis",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "colis"]
+            }
+          }
+        },
+        {
+          "name": "Voir un colis spécifique",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/colis/{{colisId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "colis", "{{colisId}}"]
+            }
+          }
+        },
+        {
+          "name": "Mettre à jour le statut d'un colis (Collecte)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"colisId\": \"{{colisId}}\",\n  \"statut\": \"collecte\",\n  \"dateChangement\": \"2025-01-15T10:30:00\",\n  \"commentaire\": \"Colis collecté chez le client\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/historiques",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "historiques"]
+            }
+          }
+        },
+        {
+          "name": "Mettre à jour le statut d'un colis (En transit)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"colisId\": \"{{colisId}}\",\n  \"statut\": \"en_transit\",\n  \"dateChangement\": \"2025-01-15T11:00:00\",\n  \"commentaire\": \"Colis en route vers le destinataire\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/historiques",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "historiques"]
+            }
+          }
+        },
+        {
+          "name": "Mettre à jour le statut d'un colis (Livré)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"colisId\": \"{{colisId}}\",\n  \"statut\": \"livre\",\n  \"dateChangement\": \"2025-01-15T14:30:00\",\n  \"commentaire\": \"Colis livré avec succès au destinataire\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/historiques",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "historiques"]
+            }
+          }
+        },
+        {
+          "name": "Voir l'historique d'un colis",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/historiques?colisId={{colisId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "historiques"],
+              "query": [
+                {
+                  "key": "colisId",
+                  "value": "{{colisId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Voir mes informations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/livreurs/{{livreurId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "livreurs", "{{livreurId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "📦 Destinataire",
+      "description": "Endpoints pour les destinataires",
+      "item": [
+        {
+          "name": "Voir mes colis",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/colis",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "colis"]
+            }
+          }
+        },
+        {
+          "name": "Suivre un colis spécifique",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/colis/{{colisId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "colis", "{{colisId}}"]
+            }
+          }
+        },
+        {
+          "name": "Voir l'historique de livraison d'un colis",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/historiques?colisId={{colisId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "historiques"],
+              "query": [
+                {
+                  "key": "colisId",
+                  "value": "{{colisId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Voir mes informations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/destinataires/{{destinataireId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "destinataires", "{{destinataireId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "👔 Manager",
+      "description": "Endpoints pour les managers - Gestion complète du système",
+      "item": [
+        {
+          "name": "Assigner un livreur à un colis",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Colis fragile - électronique\",\n  \"poids\": 2.75,\n  \"statut\": \"cree\",\n  \"priorite\": \"haute\",\n  \"villeDestination\": \"Fes\",\n  \"clientExpediteurId\": \"{{clientId}}\",\n  \"destinataireId\": \"{{destinataireId}}\",\n  \"livreurId\": \"{{livreurId}}\",\n  \"zoneId\": \"{{zoneId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/colis/{{colisId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "colis", "{{colisId}}"]
+            },
+            "description": "Met à jour un colis et assigne un livreur. Note: Cette endpoint nécessite une implémentation PUT dans ColisController."
+          }
+        },
+        {
+          "name": "Voir tous les colis",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/colis",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "colis"]
+            }
+          }
+        },
+        {
+          "name": "Voir un colis spécifique",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/colis/{{colisId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "colis", "{{colisId}}"]
+            }
+          }
+        },
+        {
+          "name": "Créer un colis",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Colis fragile - électronique\",\n  \"poids\": 2.75,\n  \"statut\": \"cree\",\n  \"priorite\": \"haute\",\n  \"villeDestination\": \"Fes\",\n  \"clientExpediteurId\": \"{{clientId}}\",\n  \"destinataireId\": \"{{destinataireId}}\",\n  \"livreurId\": \"{{livreurId}}\",\n  \"zoneId\": \"{{zoneId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/colis",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "colis"]
+            }
+          }
+        },
+        {
+          "name": "Gestion des Livreurs",
+          "item": [
+            {
+              "name": "Voir tous les livreurs",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/livreurs",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "livreurs"]
+                }
+              }
+            },
+            {
+              "name": "Créer un livreur",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nom\": \"Karim\",\n  \"prenom\": \"Saidi\",\n  \"telephone\": \"+212633333333\",\n  \"vehicule\": \"Moto\",\n  \"zoneAssignee\": \"Rabat-Centre\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/livreurs",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "livreurs"]
+                }
+              }
+            },
+            {
+              "name": "Voir un livreur spécifique",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/livreurs/{{livreurId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "livreurs", "{{livreurId}}"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Gestion des Clients",
+          "item": [
+            {
+              "name": "Voir tous les clients",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/clients",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clients"]
+                }
+              }
+            },
+            {
+              "name": "Créer un client",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nom\": \"Amina\",\n  \"prenom\": \"Bennani\",\n  \"email\": \"amina@example.com\",\n  \"telephone\": \"+212600000000\",\n  \"adresse\": \"Rue Fes, Rabat\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/clients",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clients"]
+                }
+              }
+            },
+            {
+              "name": "Voir un client spécifique",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/clients/{{clientId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clients", "{{clientId}}"]
+                }
+              }
+            },
+            {
+              "name": "Modifier un client",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"{{clientId}}\",\n  \"nom\": \"Amina\",\n  \"prenom\": \"Bennani\",\n  \"email\": \"amina.update@example.com\",\n  \"telephone\": \"+212611111111\",\n  \"adresse\": \"Av. Hassan II, Rabat\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/clients/{{clientId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clients", "{{clientId}}"]
+                }
+              }
+            },
+            {
+              "name": "Supprimer un client",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/clients/{{clientId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "clients", "{{clientId}}"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Gestion des Destinataires",
+          "item": [
+            {
+              "name": "Voir tous les destinataires",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/destinataires",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "destinataires"]
+                }
+              }
+            },
+            {
+              "name": "Créer un destinataire",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nom\": \"Youssef\",\n  \"prenom\": \"El Amrani\",\n  \"email\": \"youssef@example.com\",\n  \"telephone\": \"+212622222222\",\n  \"adresse\": \"Bd. Mohammed V, Casablanca\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/destinataires",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "destinataires"]
+                }
+              }
+            },
+            {
+              "name": "Voir un destinataire spécifique",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/destinataires/{{destinataireId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "destinataires", "{{destinataireId}}"]
+                }
+              }
+            },
+            {
+              "name": "Supprimer un destinataire",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/destinataires/{{destinataireId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "destinataires", "{{destinataireId}}"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Gestion des Produits",
+          "item": [
+            {
+              "name": "Voir tous les produits",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/produits",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "produits"]
+                }
+              }
+            },
+            {
+              "name": "Créer un produit",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nom\": \"Balance électronique\",\n  \"categorie\": \"Equipement\",\n  \"poids\": 1.25,\n  \"prix\": 399.99\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/produits",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "produits"]
+                }
+              }
+            },
+            {
+              "name": "Voir un produit spécifique",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/produits/{{produitId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "produits", "{{produitId}}"]
+                }
+              }
+            },
+            {
+              "name": "Modifier un produit",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"{{produitId}}\",\n  \"nom\": \"Balance pro\",\n  \"categorie\": \"Equipement\",\n  \"poids\": 1.30,\n  \"prix\": 429.99\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/produits/{{produitId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "produits", "{{produitId}}"]
+                }
+              }
+            },
+            {
+              "name": "Supprimer un produit",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/produits/{{produitId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "produits", "{{produitId}}"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Gestion des Zones",
+          "item": [
+            {
+              "name": "Voir toutes les zones",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/zones",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "zones"]
+                }
+              }
+            },
+            {
+              "name": "Créer une zone",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nom\": \"Rabat-Centre\",\n  \"codePostal\": \"10000\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/zones",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "zones"]
+                }
+              }
+            },
+            {
+              "name": "Voir une zone spécifique",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/zones/{{zoneId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "zones", "{{zoneId}}"]
+                }
+              }
+            },
+            {
+              "name": "Modifier une zone",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nom\": \"Rabat-Centre-Updated\",\n  \"codePostal\": \"10001\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/zones/{{zoneId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "zones", "{{zoneId}}"]
+                }
+              }
+            },
+            {
+              "name": "Supprimer une zone",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/zones/{{zoneId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "zones", "{{zoneId}}"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Historique et Suivi",
+          "item": [
+            {
+              "name": "Voir tout l'historique",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/historiques",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "historiques"]
+                }
+              }
+            },
+            {
+              "name": "Voir l'historique d'un colis",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/historiques?colisId={{colisId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "historiques"],
+                  "query": [
+                    {
+                      "key": "colisId",
+                      "value": "{{colisId}}"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Créer un historique de livraison",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"colisId\": \"{{colisId}}\",\n  \"statut\": \"collecte\",\n  \"dateChangement\": \"2025-01-15T10:30:00\",\n  \"commentaire\": \"Collecte effectuée chez le client\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/historiques",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "historiques"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "clientId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "destinataireId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "livreurId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "colisId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "produitId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "zoneId",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
+
+

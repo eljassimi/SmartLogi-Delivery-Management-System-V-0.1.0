@@ -67,6 +67,9 @@ databaseChangeLog:
               - column:
                   name: livreur_id
                   type: VARCHAR(255)
+              - column:
+                  name: zone_id
+                  type: VARCHAR(255)
             tableName: colis
   - changeSet:
       id: 1761681892590-3
@@ -183,7 +186,7 @@ databaseChangeLog:
                   name: vehicule
                   type: VARCHAR(255)
               - column:
-                  name: zone_assignee
+                  name: zone_assignee_id
                   type: VARCHAR(255)
             tableName: livreur
   - changeSet:
@@ -213,6 +216,27 @@ databaseChangeLog:
                   name: prix
                   type: DOUBLE
             tableName: produit
+  - changeSet:
+      id: 1761681892590-7b
+      author: YCode
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_zone
+                  name: id
+                  type: VARCHAR(255)
+              - column:
+                  name: nom
+                  type: VARCHAR(255)
+              - column:
+                  name: code_postal
+                  type: VARCHAR(255)
+            tableName: zone
   - changeSet:
       id: 1761681892590-8
       author: YCode
@@ -279,4 +303,26 @@ databaseChangeLog:
             constraintName: FK_HISTORIQUELIVRAISON_ON_ID_COLIS
             referencedColumnNames: id
             referencedTableName: colis
+  - changeSet:
+      id: 1761681892590-14
+      author: YCode
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: zone_id
+            baseTableName: colis
+            constraintName: FK_COLIS_ON_ZONE
+            referencedColumnNames: id
+            referencedTableName: zone
+  - changeSet:
+      id: 1761681892590-15
+      author: YCode
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: zone_assignee_id
+            baseTableName: livreur
+            constraintName: FK_LIVREUR_ON_ZONE_ASSIGNEE
+            referencedColumnNames: id
+            referencedTableName: zone
 

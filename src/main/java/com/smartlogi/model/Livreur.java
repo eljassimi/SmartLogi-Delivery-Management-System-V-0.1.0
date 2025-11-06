@@ -1,5 +1,6 @@
 package com.smartlogi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -18,7 +19,11 @@ public class Livreur {
     private String prenom;
     private String telephone;
     private String vehicule;
-    private String zoneAssignee;
+
+    @ManyToOne
+    @JsonBackReference(value = "zone-livreur")
+    @JoinColumn(name = "zone_assignee_id")
+    private Zone zoneAssignee;
 
     @OneToMany(mappedBy = "livreur")
     @JsonManagedReference(value = "livreur-colis")

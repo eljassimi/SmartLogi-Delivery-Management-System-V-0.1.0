@@ -9,5 +9,5 @@ public class LivreurResponseDTO {
     private String prenom;
     private String telephone;
     private String vehicule;
-    private String zoneAssignee;
+    private String zoneAssigneeId;
 }

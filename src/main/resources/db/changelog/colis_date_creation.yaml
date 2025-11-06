@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20251106-1
+      author: YCode
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addColumn:
+            tableName: colis
+            columns:
+              - column:
+                  name: date_creation
+                  type: DATE
+                  defaultValueComputed: CURRENT_DATE
+      rollback:
+        - dropColumn:
+            columnName: date_creation
+            tableName: colis
